@@ -9,6 +9,24 @@ import SwiftUI
 import WebKit
 import Combine
 
+// MARK: Shared Logic
+
+extension WebView {
+    internal func makeView(_ view: WKWebView, context: Context) {
+        context.coordinator.setUpObservers(on: view)
+    }
+    
+    internal func updateView(_ view: WKWebView, context: Context) {
+        let wasInternalChange = context.coordinator.updateView(view)
+        guard !wasInternalChange else { return }
+        
+        // Only call updatingWebView(_:context:) if it's not an internally-managed update.
+        delegate.updatingWebView(view, context: context)
+    }
+    
+    public func makeCoordinator() -> WebViewDelegate { delegate }
+}
+
 // MARK: Delegate
 
 public class WebViewDelegate: NSObject, ObservableObject, WKNavigationDelegate, WKUIDelegate {
