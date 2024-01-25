@@ -239,3 +239,14 @@ public class WebViewDelegate: NSObject, ObservableObject, WKNavigationDelegate, 
     ///   - context: The context.
     public func updatingWebView(_ webView: WKWebView, context: WebView.Context) {}
 }
+
+private enum WebViewAction: Hashable {
+    case goBack
+    case goForward
+    
+    case loadRequest(LoadRequest)
+    
+    case reload(fromOrigin: Bool)
+    
+    case stop
+}
