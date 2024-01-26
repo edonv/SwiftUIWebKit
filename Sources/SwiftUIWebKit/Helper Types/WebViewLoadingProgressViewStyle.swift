@@ -88,7 +88,7 @@ extension ProgressViewStyle where Self == WebViewLoadingProgressViewStyle {
 
 extension View {
     @available(iOS 16.0, macOS 13.0, *)
-    func webViewLoadingBar<S: ShapeStyle>(progress: Double, isHidden: Bool, style: S? = nil) -> some View {
+    public func webViewLoadingBar<S: ShapeStyle>(progress: Double, isHidden: Bool, style: S? = nil) -> some View {
         self.overlayBackport(alignment: .top) {
             ProgressView(value: progress)
                 .progressViewStyle(.webViewLoading)
@@ -100,7 +100,7 @@ extension View {
     
     @available(iOS, introduced: 14.0, deprecated: 16.0, message: "Use `webViewLoadingBar(progress:isHidden:style:)` modifier instead.")
     @available(macOS, introduced: 11.0, deprecated: 13.0, message: "Use `webViewLoadingBar(progress:isHidden:style:)` modifier instead.")
-    func webViewLoadingBar(progress: Double, isHidden: Bool, tint: Color?) -> some View {
+    public func webViewLoadingBar(progress: Double, isHidden: Bool, tint: Color?) -> some View {
         self.overlayBackport(alignment: .top) {
             if #available(iOS 15.0, macOS 12.0, *) {
                 ProgressView(value: progress)
