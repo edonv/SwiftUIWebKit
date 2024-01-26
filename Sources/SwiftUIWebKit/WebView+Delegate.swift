@@ -29,7 +29,7 @@ extension WebView {
 
 // MARK: Delegate
 
-public class WebViewDelegate: NSObject, ObservableObject, WKNavigationDelegate, WKUIDelegate {
+open class WebViewDelegate: NSObject, ObservableObject, WKNavigationDelegate, WKUIDelegate {
     private var observers = Set<AnyCancellable>()
     
     // MARK: - Public Properties
@@ -237,7 +237,7 @@ public class WebViewDelegate: NSObject, ObservableObject, WKNavigationDelegate, 
     /// - Parameters:
     ///   - webView: The `WKWebView`.
     ///   - context: The context.
-    public func updatingWebView(_ webView: WKWebView, context: WebView.Context) {}
+    open func updatingWebView(_ webView: WKWebView, context: WebView.Context) {}
 }
 
 private enum WebViewAction: Hashable {
