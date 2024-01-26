@@ -13,13 +13,13 @@ public struct WebViewReloadButton: View {
     private var reloadFromOrigin: Bool
     private var useMenu: Bool = false
     
-    init(delegate: WebViewDelegate, reloadFromOrigin: Bool = false) {
+    public init(delegate: WebViewDelegate, reloadFromOrigin: Bool = false) {
         self._delegate = .init(initialValue: delegate)
         self.reloadFromOrigin = reloadFromOrigin
     }
     
     @available(iOS 15.0, *)
-    init(delegate: WebViewDelegate, useMenu: Bool) {
+    public init(delegate: WebViewDelegate, useMenu: Bool) {
         self._delegate = .init(initialValue: delegate)
         self.reloadFromOrigin = false
         self.useMenu = useMenu
