@@ -26,4 +26,21 @@ public struct WebView {
     public static func handlesURLScheme(_ urlScheme: String) -> Bool {
         WKWebView.handlesURLScheme(urlScheme)
     }
+    
+    /// Adds a navigation bar with the title of the webpage, including a progress bar overlayed at the bottom that hides itself when loading is stopped. It won't do any if `WebView` is not placed in a `NavigationStack` or `NavigationView`.
+    ///
+    /// To color the progress bar, use [`tint(_:)`](https://developer.apple.com/documentation/swiftui/view/tint(_:)-23xyq) or [`tint(_:)`](https://developer.apple.com/documentation/swiftui/view/tint(_:)-93mfq) (or [`accentColor(_:)`](https://developer.apple.com/documentation/familycontrols/familyactivitypicker/accentcolor(_:)) if on iOS 14). It will default to the app's accent color.
+    @available(iOS 14.0, *)
+    public func standardNavigationBar() -> some View {
+        self
+            .navigationTitle(delegate.pageTitle)
+            .webViewLoadingBar(progress: delegate.loadingProgress, isHidden: !delegate.isLoading, tint: nil)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    if delegate.pageTitle.isEmpty {
+                        Text(" ")
+                    }
+                }
+            }
+    }
 }
