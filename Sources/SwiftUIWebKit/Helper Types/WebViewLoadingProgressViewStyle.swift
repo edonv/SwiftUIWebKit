@@ -8,10 +8,10 @@
 import SwiftUI
 
 private struct ProgressLine: Shape, Animatable {
-    @available(iOS 17.0, *)
+    @available(iOS 17.0, macOS 14.0, *)
     var layoutDirectionBehavior: LayoutDirectionBehavior { .mirrors }
     
-    @available(iOS 15.0, *)
+    @available(iOS 15.0, macOS 12.0, *)
     static var role: ShapeRole { .stroke }
     
     var fractionCompleted: Double
@@ -62,7 +62,7 @@ struct WebViewLoadingProgressViewStyle: ProgressViewStyle {
     
     @ViewBuilder
     private func progressShape(fractionCompleted: Double) -> some View {
-        if #available(iOS 15, *),
+        if #available(iOS 15.0, macOS 12.0, *),
            tint == nil {
             ProgressLine(fractionCompleted: fractionCompleted)
                 .stroke(.tint, lineWidth: 3)
@@ -73,7 +73,7 @@ struct WebViewLoadingProgressViewStyle: ProgressViewStyle {
     }
 }
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 extension ProgressViewStyle where Self == WebViewLoadingProgressViewStyle {
     static var webViewLoading: Self {
         .init()
@@ -106,19 +106,23 @@ extension View {
                 ProgressView(value: progress)
                     .progressViewStyle(.webViewLoading(tint: tint))
                     .tint(tint as Color?)
+                    #if os(iOS)
                     .offset(y: -3)
+                    #endif
                     .opacity(isHidden ? 0 : 1)
             } else {
                 ProgressView(value: progress)
                     .progressViewStyle(.webViewLoading)
+                    #if os(iOS)
                     .offset(y: -3)
+                    #endif
                     .opacity(isHidden ? 0 : 1)
             }
         }
     }
 }
 
-@available(iOS 16.0, *)
+@available(iOS 16.0, macOS 13.0, *)
 #Preview {
     VStack {
         ProgressView(value: 0.3)
@@ -137,7 +141,7 @@ private extension View {
         alignment: Alignment = .center,
         @ViewBuilder content: () -> V
     ) -> some View where V: View {
-        if #available(iOS 15.0, *) {
+        if #available(iOS 15.0, macOS 12.0, *) {
             self.overlay(alignment: alignment, content: content)
         } else {
             self.overlay(content(), alignment: alignment)

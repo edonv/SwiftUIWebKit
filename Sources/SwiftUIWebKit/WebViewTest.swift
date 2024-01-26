@@ -8,7 +8,7 @@
 import SwiftUI
 import WebKit
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 private struct WebViewTest: View {
     @StateObject
     private var viewModel = ViewModel()
@@ -22,7 +22,9 @@ private struct WebViewTest: View {
                                    isHidden: !viewModel.isLoading,
                                    tint: .orange)
                 .navigationTitle(viewModel.pageTitle)
+                #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
+                #endif
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         if viewModel.pageTitle.isEmpty {
@@ -30,7 +32,7 @@ private struct WebViewTest: View {
                         }
                     }
                     
-                    ToolbarItemGroup(placement: .bottomBar) {
+                    ToolbarItemGroup(placement: .status) {
 //                        if #available(iOS 15.0, *) {
 //                            Menu {
 //                                ForEach(viewModel.backList) { item in
@@ -114,7 +116,7 @@ private struct WebViewTest: View {
     }
 }
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 extension WebViewTest {
     private class ViewModel: WebViewDelegate {
         override init() {
@@ -140,7 +142,7 @@ extension WebViewTest {
     }
 }
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 #Preview {
     WebViewTest()
 }

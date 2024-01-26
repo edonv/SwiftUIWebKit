@@ -73,7 +73,7 @@ public class WebViewDelegate: NSObject, ObservableObject, WKNavigationDelegate, 
         published: inout Published<T>,
         backportAssign keyPath: ReferenceWritableKeyPath<WebViewDelegate, T>
     ) where P: Publisher, P.Output == T, P.Failure == Never {
-        if #available(iOS 14.0, *) {
+        if #available(iOS 14.0, macOS 11.0, *) {
             input.assign(to: &published.projectedValue)
         } else {
             input
