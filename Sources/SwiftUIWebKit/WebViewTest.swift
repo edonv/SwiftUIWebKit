@@ -18,9 +18,9 @@ private struct WebViewTest: View {
             WebView(delegate: viewModel)
                 // Replace with ProgressViewStyle and its own modifier that uses alignment guide to stick to safe area
                 // Replace that with backport viewbuilder modifier
-                .overlay(loadingBar
-                    .offset(y: -3),
-                         alignment: .top)
+                .webViewLoadingBar(progress: viewModel.loadingProgress,
+                                   isHidden: !viewModel.isLoading,
+                                   tint: .orange)
                 .navigationTitle(viewModel.pageTitle)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
@@ -110,7 +110,6 @@ private struct WebViewTest: View {
                 },
                 alignment: .leading
             )
-            .animation(.default, value: viewModel.loadingProgress)
             .opacity(viewModel.isLoading ? 1 : 0)
     }
 }
