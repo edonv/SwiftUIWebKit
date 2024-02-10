@@ -130,8 +130,8 @@ open class WebViewDelegate: NSObject, ObservableObject, WKNavigationDelegate, WK
                       backportAssign: \.canGoForward)
     }
     
-    private func newAction(_ action: WebViewAction) {
-        currentAction = action
+    private func newAction(_ action: WebViewAction.ActionType) {
+        currentAction = WebViewAction(action: action)
     }
     
     /// Returns a `Bool` describing if it the change was an internal one, and was acted on.
@@ -139,7 +139,7 @@ open class WebViewDelegate: NSObject, ObservableObject, WKNavigationDelegate, WK
         guard currentAction != lastAction else { return false }
         
         var completedAction = false
-        switch currentAction {
+        switch currentAction?.action {
         case .goBack where view.canGoBack:
             view.goBack()
             completedAction = true
@@ -240,13 +240,21 @@ open class WebViewDelegate: NSObject, ObservableObject, WKNavigationDelegate, WK
     open func updatingWebView(_ webView: WKWebView, context: WebView.Context) {}
 }
 
-private enum WebViewAction: Hashable {
-    case goBack
-    case goForward
+private struct WebViewAction: Hashable {
+    /// Uniquely identifies the action.
+    ///
+    /// This is so multiple actions of the same type can be called back-to-back.
+    private let id: UUID = .init()
+    let action: ActionType
     
-    case loadRequest(LoadRequest)
-    
-    case reload(fromOrigin: Bool)
-    
-    case stop
+    enum ActionType: Hashable {
+        case goBack
+        case goForward
+        
+        case loadRequest(LoadRequest)
+        
+        case reload(fromOrigin: Bool)
+        
+        case stop
+    }
 }
