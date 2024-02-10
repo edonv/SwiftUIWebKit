@@ -10,7 +10,8 @@ import WebKit
 
 // MARK: - NSViewRepresentable
 
-#if canImport(AppKit)
+// This applies only to native macOS, not Catalyst
+#if os(macOS)
 extension WebView: NSViewRepresentable {
     public func makeNSView(context: Context) -> WKWebView {
         let webView = WKWebView(frame: .zero, configuration: configuration ?? .init())
