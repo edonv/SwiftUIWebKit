@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 13.0, macOS 11.0, *)
 public struct WebViewReloadButton: View {
     @ObservedObject
     private var delegate: WebViewDelegate
@@ -18,7 +19,7 @@ public struct WebViewReloadButton: View {
         self.reloadFromOrigin = reloadFromOrigin
     }
     
-    @available(iOS 15.0, *)
+    @available(iOS 15.0, macOS 11.0, *)
     public init(delegate: WebViewDelegate, useMenu: Bool) {
         self._delegate = .init(initialValue: delegate)
         self.reloadFromOrigin = false
@@ -26,7 +27,7 @@ public struct WebViewReloadButton: View {
     }
     
     public var body: some View {
-        if #available(iOS 15.0, *),
+        if #available(iOS 15.0, macOS 12.0, *),
            useMenu {
             menu
         } else {
@@ -42,7 +43,7 @@ public struct WebViewReloadButton: View {
         }
     }
     
-    @available(iOS 15.0, *)
+    @available(iOS 15.0, macOS 12.0, *)
     private var menu: some View {
         Menu {
             if !delegate.isLoading {
@@ -78,7 +79,7 @@ public struct WebViewReloadButton: View {
     
     @ViewBuilder
     private var stopLabel: some View {
-        if #available(iOS 14.0, *) {
+        if #available(iOS 14.0, macOS 11.0, *) {
             Label("Stop", systemImage: "xmark")
         } else {
             Image(systemName: "xmark")
@@ -87,7 +88,7 @@ public struct WebViewReloadButton: View {
     
     @ViewBuilder
     private var reloadLabel: some View {
-        if #available(iOS 14.0, *) {
+        if #available(iOS 14.0, macOS 11.0, *) {
             Label("Reload", systemImage: "arrow.clockwise")
         } else {
             Image(systemName: "arrow.clockwise")

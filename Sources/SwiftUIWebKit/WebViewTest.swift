@@ -8,7 +8,7 @@
 import SwiftUI
 import WebKit
 
-@available(iOS 14.0, macOS 11.0, *)
+@available(iOS 15.0, macOS 12.0, *)
 private struct WebViewTest: View {
     @StateObject
     private var viewModel = ViewModel()
@@ -116,7 +116,7 @@ private struct WebViewTest: View {
     }
 }
 
-@available(iOS 14.0, macOS 11.0, *)
+@available(iOS 15.0, macOS 12.0, *)
 extension WebViewTest {
     private class ViewModel: WebViewDelegate {
         override init() {
@@ -142,7 +142,7 @@ extension WebViewTest {
     }
 }
 
-@available(iOS 14.0, macOS 11.0, *)
+@available(iOS 15.0, macOS 12.0, *)
 #Preview {
     WebViewTest()
 }
